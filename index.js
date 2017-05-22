@@ -96,15 +96,6 @@
         }
     }
 
-    
-    //console.log(getHTML('a#nav_@mode.nav-@mode[href=@url title=@text]', 'in', '__REPLACE__'));
-   // window.zTemplate = zTemplate;
-    var html = zTemplate('li.@mode @choose @last[data-mode=@mode]>a#nav_@mode.nav-@mode[href=@url title=@text]>i.nav-icon-@mode+span{@text}');
-    console.log(html({
-        mode: 'mode',
-        choose: 'choose',
-        last: 'last',
-        url: 'www.test.com',
-        text: 'hoozi'
-    }));
+   window.zTemplate = zTemplate;
+   
 })();
