@@ -68,8 +68,8 @@
         })
     }
 
-    var zTemplate = function(data){
-        return function(temp) {
+    var zTemplate = function(temp){
+        return function(data) {
             var temps = temp
                 .replace(/^\s+|\s+$/, '') //去除首尾空格
                 .replace(/\s+(>)\s+/g, '$1') //去除>首尾空格
@@ -90,13 +90,21 @@
                 });
                 html = format(html, nodeTemp);
             });
-            return html;
+            return html.replace(/@(\w+)/g, function(match, key) {
+                return typeof data[key] === 'undefined' ? '' : data[key];
+            });
         }
     }
 
     
     //console.log(getHTML('a#nav_@mode.nav-@mode[href=@url title=@text]', 'in', '__REPLACE__'));
-    window.zTemplate = zTemplate;
-    var html = zTemplate()('li.@mode @choose @last[data-mode=@mode]>a#nav_@mode.nav-@mode[href=@url title=@text]>i.nav-icon-@mode+span{@text}>span{@num}')
-    console.log(html);
+   // window.zTemplate = zTemplate;
+    var html = zTemplate('li.@mode @choose @last[data-mode=@mode]>a#nav_@mode.nav-@mode[href=@url title=@text]>i.nav-icon-@mode+span{@text}');
+    console.log(html({
+        mode: 'mode',
+        choose: 'choose',
+        last: 'last',
+        url: 'www.test.com',
+        text: 'hoozi'
+    }));
 })();
